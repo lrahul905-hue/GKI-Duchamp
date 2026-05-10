@@ -158,7 +158,7 @@ jobs:
         id: ccache-cache
         with:
           path: ~/.ccache
-          key: ccache-${{ matrix.name }}
+          key: ccache-${{ matrix.name }}-${{ github.run_id }}
           restore-keys: ccache-${{ matrix.name }}
 
       - name: Run Build Script
