@@ -191,7 +191,14 @@ if susfs_included && [ "$KSU" = "RSKSU" ]; then
   install_ksu "ReSukiSU/ReSukiSU" "main"
 
   log "SUSFS included"
-  git clone --depth=1 -q "$SUSFS_URL" -b "$SUSFS_BRANCH" "$SUSFS_DIR"
+  git clone --depth=100 -q "$SUSFS_URL" -b "$SUSFS_BRANCH" "$SUSFS_DIR"
+  cd "$SUSFS_DIR"
+  git config --global user.email "mr.ahmed.nassif@gmail.com"
+  git config --global user.name "Ahmed Al-Nassif"
+  git branch a14-6.1
+  git reset --hard 9bf72ec
+  git cherry-pick 4f12b29
+  cd $OLDPWD
 
   cp -R $SUSFS_PATCHES/fs/* ./fs
   cp -R $SUSFS_PATCHES/include/linux/* ./include/linux/
