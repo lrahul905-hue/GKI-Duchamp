@@ -220,7 +220,7 @@ if [ "$KSU" = "KSU" ]; then
     git clone --depth=1 -q "$SUSFS_URL" -b "$SUSFS_BRANCH" "$SUSFS_DIR"
 
     cd KernelSU
-    #git reset --hard "61c6313"
+    git reset --hard "8421ad5"
     git reset --soft HEAD~1
     patch -p1 --fuzz=3 < "$WORKDIR/patches/0001-feat-avc-log-spoofing.patch"
     patch -p1 --fuzz=3 < "$WORKDIR/patches/0001-feat-add-multiple-managers.patch"
