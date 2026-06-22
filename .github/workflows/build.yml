@@ -164,7 +164,7 @@ jobs:
       - name: Run Build Script
         env:
           GH_TOKEN: ${{ github.token }}
-          KERNEL_REPO: ${{ secrets.KERNEL_REPO }}
+          KERNEL_REPO: https://github.com/ahmed-alnassif/android_kernel_common-6.1
           KSU: ${{ matrix.KSU }}
           KSU_COMPAT: ${{ matrix.KSU_COMPAT }}
           KSU_SUSFS: ${{ matrix.KSU_SUSFS }}
