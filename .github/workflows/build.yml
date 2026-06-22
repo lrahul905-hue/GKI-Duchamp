@@ -119,7 +119,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
-    
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -142,7 +142,7 @@ jobs:
           if [[ $KSU == "no" && $KSU_SUSFS == "true" ]]; then
               _error "Cannot use SuSFS without KernelSU"
           fi
-          
+
           if [[ $ret -gt 0 ]]; then
             exit $ret
           fi
@@ -265,17 +265,17 @@ jobs:
         run: |
           # Find all environment files
           ENV_FILES=$(find release-artifacts -name "build-env-*.txt")
-    
+
           # Set defaults
           echo "KSU=Not included" >> $GITHUB_ENV
           echo "KSU_SUSFS=Not included" >> $GITHUB_ENV
           echo "SUSFS_VERSION=Not included" >> $GITHUB_ENV
-    
+
           # Load values from any file
           SUSFS_FILE=""
           for env_file in $ENV_FILES; do
             echo "Checking $env_file..."
-      
+
             # Check if this file has SUSFS
             if grep -q "SUSFS_VERSION=" "$env_file" && grep -q "KSU_SUSFS=true" "$env_file"; then
               SUSFS_FILE="$env_file"
@@ -283,12 +283,12 @@ jobs:
               break
             fi
           done
-    
+
           # If no SUSFS file, take first file
           if [ -z "$SUSFS_FILE" ]; then
             SUSFS_FILE=$(echo "$ENV_FILES" | head -1)
           fi
-    
+
           # Load the chosen file
           if [ -f "$SUSFS_FILE" ]; then
             echo "Loading environment from: $SUSFS_FILE"
@@ -303,7 +303,7 @@ jobs:
         run: |
             # Get list of built variants
             VARIANTS=$(ls release-artifacts/*.zip 2>/dev/null | xargs -n1 basename | sed 's/.zip//')
-            
+
             {
             if [ "${{ inputs.TEST }}" = "yes"  ];then
               echo ">[!warning]"
@@ -312,7 +312,7 @@ jobs:
             fi
             cat << EOF
             ### 📢 ${{ env.RELEASE_NAME }}
-            
+
             **Build Information:**
             - 🐧 **Kernel:** ${{ env.RELEASE_NAME }}
             - 🔖 **Version:** ${{ env.LINUX_VERSION }} (android14-6.1-lts)
