@@ -164,7 +164,7 @@ jobs:
       - name: Run Build Script
         env:
           GH_TOKEN: ${{ github.token }}
-          KERNEL_REPO: https://github.com/ahmed-alnassif/android_kernel_common-6.1
+          KERNEL_REPO: https://github.com/ahmed-alnassif/GKI-Duchamp-6.1
           KSU: ${{ matrix.KSU }}
           KSU_COMPAT: ${{ matrix.KSU_COMPAT }}
           KSU_SUSFS: ${{ matrix.KSU_SUSFS }}
@@ -367,7 +367,7 @@ jobs:
               echo "*No changelog available*"
             fi
             echo ""
-            echo "**Full Commit History:** [Browse all commits](https://github.com/ahmed-alnassif/android_kernel_common-6.1/commits/a14-6.1)"
+            echo "**Full Commit History:** [Browse all commits](https://github.com/ahmed-alnassif/GKI-Duchamp-6.1/commits/GKID-6.1)"
             echo ""
             echo "---"
             echo "**KernelSU Changelog (last 10 commits):**"
