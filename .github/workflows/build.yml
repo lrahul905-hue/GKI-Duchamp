@@ -15,6 +15,8 @@ on:
         type: string
       TEST:
         type: string
+      LTO:
+        type: string
 
   workflow_dispatch:
     inputs:
@@ -41,6 +43,15 @@ on:
         options:
           - "no"
           - "yes"
+
+      LTO:
+        description: enable LTO optimization
+        default: "thinLTO"
+        type: choice
+        options:
+          - "noneLTO"
+          - "thinLTO"
+          - "fullLTO"
 
       BUILD_VANILLA:
         description: "Build Vanilla (no KSU)"
@@ -172,6 +183,7 @@ jobs:
           TODO: ${{ inputs.TODO }}
           STATUS: ${{ inputs.STATUS }}
           TEST: ${{ inputs.TEST }}
+          LTO: ${{ inputs.LTO }}
           BUILD_NAME: ${{ matrix.name }}
           RUN_NUM: -r${{ github.run_number }}
         run: |
@@ -315,6 +327,7 @@ jobs:
 
             **Build Information:**
             - 🐧 **Kernel:** ${{ env.RELEASE_NAME }}
+            - 🔥 **LTO optimizations:** ${{ inputs.LTO }}
             - 🔖 **Version:** ${{ env.LINUX_VERSION }} (android14-6.1-lts)
             - 📦 **Variants:**
             $(echo "$VARIANTS" | sed 's/^/  - /')

@@ -206,6 +206,27 @@ CONFIG_IP6_NF_MATCH_HL=y
 # BBG (baseband-guard)
 CONFIG_BBG=y
 EOF
+
+case "$LTO" in
+  thinLTO)
+    echo "🔥 ThinLTO optimizations enabled"
+    cat >> "$DEFCONFIG" <<EOF
+CONFIG_LTO_NONE=n
+CONFIG_LTO_CLANG_THIN=y
+EOF
+    ;;
+  fullLTO)
+    echo "🔥 Full LTO optimizations enabled"
+    cat >> "$DEFCONFIG" <<EOF
+CONFIG_LTO_NONE=n
+CONFIG_LTO_CLANG_FULL=y
+EOF
+    ;;
+  *)
+    echo "ℹ️ LTO disabled or not specified"
+    ;;
+esac
+
 if [ "$KSU_COMPAT" != "true" ]; then
   echo "🔧 Disable useless debugging configs for performance and resources"
   cat >> $DEFCONFIG <<EOF
