@@ -175,7 +175,7 @@ jobs:
       - name: Run Build Script
         env:
           GH_TOKEN: ${{ github.token }}
-          KERNEL_REPO: https://github.com/ahmed-alnassif/GKI-Duchamp-6.1
+          KERNEL_REPO: https://github.com/lrahul905-hue/android_kernel_common-6.1.git
           KSU: ${{ matrix.KSU }}
           KSU_COMPAT: ${{ matrix.KSU_COMPAT }}
           KSU_SUSFS: ${{ matrix.KSU_SUSFS }}
@@ -434,3 +434,4 @@ jobs:
             release-artifacts/checksums.txt
             release-artifacts/checksums-md5.txt
           body_path: release_body.md
+          
