@@ -12,6 +12,7 @@ ANYKERNEL_REPO="https://github.com/lrahul905-hue/AK3-GKID"
 
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_BRANCH="a14-6.1"
+KMI_SYMBOL_CHECK=0
 
 # Set timezone
 sudo timedatectl set-timezone "$TIMEZONE" || export TZ="$TIMEZONE"
