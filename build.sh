@@ -72,13 +72,15 @@ SUSFS_PATCHES="${SUSFS_DIR}/kernel_patches"
 SUSFS_BRANCH="gki-android14-6.1"
 SUSFS_PATCH="gki-android14-6.1"
 
-# >>> CHANGELOG BYPASS START <<<
-# log "Changelog of repos"
-# gh api "repos/lrahul905-hue/AK3-GKID/GKI-Duchamp-6.1/commits?sha=${KERNEL_BRANCH}&per_page=10" --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])' > "$RELEASE_DIR/android_kernel-6.1_changelog.txt"
-# gh api 'repos/tiann/KernelSU/commits?sha=main&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])' > "$RELEASE_DIR/ksu_changelog.txt"
-# gh api 'repos/SukiSU-Ultra/SukiSU-Ultra/commits?sha=builtin&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])' > "$RELEASE_DIR/sukisu_changelog.txt"
-# gh api 'repos/pershoot/KernelSU-Next/commits?sha=dev-susfs&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])' > "$RELEASE_DIR/ksun_changelog.txt"
-# >>> CHANGELOG BYPASS END <<<
+log "Changelog of repos"
+gh api "repos/ahmed-alnassif/GKI-Duchamp-6.1/commits?sha=${KERNEL_BRANCH}&per_page=10" --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])'\
+> "$RELEASE_DIR/android_kernel-6.1_changelog.txt"
+gh api 'repos/tiann/KernelSU/commits?sha=main&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])'\
+> "$RELEASE_DIR/ksu_changelog.txt"
+gh api 'repos/SukiSU-Ultra/SukiSU-Ultra/commits?sha=builtin&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])'\
+> "$RELEASE_DIR/sukisu_changelog.txt"
+gh api 'repos/pershoot/KernelSU-Next/commits?sha=dev-susfs&per_page=10' --jq '.[] | "- [" + .sha[0:7] + "](" + .html_url + ") " + (.commit.message | split("\n")[0])'\
+> "$RELEASE_DIR/ksun_changelog.txt"
 
 # Download Clang
 log "Downloading Clang..."
