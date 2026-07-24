@@ -161,7 +161,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ccache gh bc bison flex libssl-dev libelf-dev dwarves cpio
+          sudo apt-get install -y ccache gha bc bison flex libssl-dev libelf-dev dwarves cpio
           pip install lxml
 
       - name: Cache ccache
@@ -189,7 +189,57 @@ jobs:
         run: |
           export GIT_CLONE_PROTECTION_ACTIVE=false
           chmod +x *.sh py/*.py
+          
+          # Pehle tumhara normal kernel build hoga
           ./build.sh
+          
+          echo "🔥 Compiling GodMode Kernel Module..."
+          
+          # GKI out directory dhoondhna jahan kernel headers hain
+          KERNEL_OUT_DIR=$(find $(pwd)/out -name "Module.symvers" -printf "%h\n" | head -n 1)
+          
+          if [ -z "$KERNEL_OUT_DIR" ]; then 
+              echo "⚠️ Kernel output directory nahi mili! Module compile nahi hua."
+          else
+              echo "✅ Kernel directory mil gayi: $KERNEL_OUT_DIR"
+              
+              # GodMode module ko compile karna
+              make -j$(nproc) -C $KERNEL_OUT_DIR M=$(pwd)/godmode_module ARCH=arm64 LLVM=1 LLVM_IAS=1 modules
+              
+              # Agar compile success hua, toh Zip banayenge
+              if [ -f "godmode_module/godmode.ko" ]; then
+                  echo "✅ godmode.ko successfully ban gaya!"
+                  
+                  # Flashable ZIP ka structure banana
+                  mkdir -p GodMode_KSU
+                  cp godmode_module/godmode.ko GodMode_KSU/
+                  
+                  # module.prop file generate karna (YAML Safe Approach)
+                  echo "id=godmode_bypass" > GodMode_KSU/module.prop
+                  echo "name=GodMode EAS Bypass (KSU)" >> GodMode_KSU/module.prop
+                  echo "version=v1.0" >> GodMode_KSU/module.prop
+                  echo "versionCode=1" >> GodMode_KSU/module.prop
+                  echo "author=GodMode" >> GodMode_KSU/module.prop
+                  echo "description=Bypasses MediaTek EAS and Thermal limits for extreme gaming." >> GodMode_KSU/module.prop
+                  
+                  # service.sh file generate karna (YAML Safe Approach)
+                  echo "#!/system/bin/sh" > GodMode_KSU/service.sh
+                  echo 'MODDIR=${0%/*}' >> GodMode_KSU/service.sh
+                  echo "insmod \$MODDIR/godmode.ko" >> GodMode_KSU/service.sh
+                  
+                  chmod +x GodMode_KSU/service.sh
+                  
+                  # Sabko zip karke artifacts folder me dalna
+                  cd GodMode_KSU
+                  zip -r9 ../artifacts/GodMode-KSU-Module-${{ matrix.name }}.zip *
+                  cd ..
+                  echo "🎉 GodMode zip successfully created in artifacts!"
+              else
+                  echo "❌ Module compilation fail ho gaya!"
+              fi
+          fi
+          
+          
 
       - name: ccache stats
         if: always()
