@@ -46,7 +46,7 @@ trap 'echo "!!! Received SIGINT at $(date)" >> "$BUILD_LOGS"' INT
 
 # Clone kernel source
 log "Cloning kernel source from $(simplify_gh_url "$KERNEL_REPO")"
-git clone -q --depth=1 "$KERNEL_REPO" -b "$KERNEL_BRANCH" "$KSRC"
+git clone -q --depth=1 "$KERNEL_REPO" -b "a14-6.1" "$KSRC"
 
 cd $KSRC
 LINUX_VERSION=$(make kernelversion)
