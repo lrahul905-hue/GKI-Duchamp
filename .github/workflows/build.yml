@@ -161,8 +161,8 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y ccache gha bc bison flex libssl-dev libelf-dev dwarves cpio
-          pip install lxml
+          sudo apt-get install -y ccache gh bc bison flex libssl-dev libelf-dev dwarves cpio python3-lxml
+
 
       - name: Cache ccache
         uses: actions/cache@v4
