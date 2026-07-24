@@ -8,7 +8,7 @@ KERNEL_NAME="Duchamp"
 USER="lrahul905-hue"
 HOST="GKI-Duchamp"
 TIMEZONE="Asia/Damascus"
-ANYKERNEL_REPO="https://github.com/ahmed-alnassif/AK3-GKID"
+ANYKERNEL_REPO="https://github.com/lrahul905-hua/AK3-GKID"
 
 KERNEL_DEFCONFIG="gki_defconfig"
 KERNEL_BRANCH="GKID-6.1"
